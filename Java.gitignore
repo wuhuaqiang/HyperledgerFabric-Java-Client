@@ -7,6 +7,7 @@
 *.context
 *-config.json
 *.xml
+*.iml
 
 # BlueJ files
 *.ctxt

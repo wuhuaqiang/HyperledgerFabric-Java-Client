@@ -4,7 +4,8 @@ public class Test {
 
     public static void main(String args[]) throws Exception {
         String org="org1";
-        LoadConnectionProfile networkConfig=new LoadConnectionProfile();
+        //singleton
+        LoadConnectionProfile networkConfig = LoadConnectionProfile.getInstance();
 
 
         CAClient caClient=new CAClient(org);
