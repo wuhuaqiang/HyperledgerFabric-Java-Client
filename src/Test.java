@@ -1,10 +1,10 @@
 import com.fabric.client.CAClient;
-import com.fabric.network.LoadNetwork;
+import com.fabric.network.LoadConnectionProfile;
 public class Test {
 
     public static void main(String args[]) throws Exception {
         String org="org1";
-        LoadNetwork networkConfig=new LoadNetwork();
+        LoadConnectionProfile networkConfig=new LoadConnectionProfile();
 
 
         CAClient caClient=new CAClient(org);

@@ -1,15 +1,12 @@
 package com.fabric.client;
 
-import com.fabric.network.LoadNetwork;
+import com.fabric.network.LoadConnectionProfile;
 import com.fabric.participant.UserContext;
 import com.fabric.util.Util;
 import org.hyperledger.fabric.sdk.Enrollment;
-import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
-import org.hyperledger.fabric.sdk.exception.NetworkConfigurationException;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
 
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,19 +20,16 @@ public class CAClient {
 
     private HFCAClient hfcaClient;
     private String org;
-    private LoadNetwork config;
+    private LoadConnectionProfile config;
 
     /**
      * Constructor - loads the CA configuration from network configuration file and intitialize the caClient for organization org
      *
      * @param org - organization name
-     * @throws IOException
-     * @throws NetworkConfigurationException
-     * @throws InvalidArgumentException
-     * @throws org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException
+     * @throws Exception
      */
-    public CAClient(String org) throws IOException, NetworkConfigurationException, InvalidArgumentException, org.hyperledger.fabric_ca.sdk.exception.InvalidArgumentException {
-        this.config = new LoadNetwork();
+    public CAClient(String org) throws Exception {
+        this.config = LoadConnectionProfile.getInstance();
         this.org = org;
         this.hfcaClient = HFCAClient.createNewInstance(config.getCaInfo(org));
     }
@@ -110,6 +104,7 @@ public class CAClient {
     /**
      * Return UserContext for user; if not find in /cred directory, usercontext is generated from user enrollSecret.
      * User must be registered with MSP provider.
+     *
      * @param userName
      * @param enrollSecret optional
      * @return UserContext
