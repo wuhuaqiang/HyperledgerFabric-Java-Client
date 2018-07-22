@@ -5,6 +5,7 @@
 *.log
 *.context
 *-config.json
+*.xml
 
 # BlueJ files
 *.ctxt
