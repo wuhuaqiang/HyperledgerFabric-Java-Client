@@ -4,7 +4,7 @@ public class Test {
 
     public static void main(String args[]) throws Exception {
         String org="org1";
-        //singleton
+        
         LoadConnectionProfile networkConfig = LoadConnectionProfile.getInstance();
 
 
