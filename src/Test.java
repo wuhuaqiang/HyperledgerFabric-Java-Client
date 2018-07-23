@@ -18,7 +18,7 @@ public class Test {
         ChannelWrapper channelClient = ChannelWrapper.getChannelWrapperInstance(userName, org);
         //channelClient.queryByTransactionId("14582cbfa64c7a8664bcbdd4f812c4119142a230e017aef10fc700462fe8e439", "mychannel");
        //channelClient.queryChaincode("mychannel","pnp_go1","queryAssetData","988881530630158000");
-        String[] args1={"3110323232327789","Vishal","03-10-1990","Single","9980025414","IN","560066","BEML Layout","BLR","KR"};
+        String[] args1={"31103337","Vishal","03-10-1990","Single","9980025414","IN","560066","BEML Layout","BLR","KR"};
         channelClient.invokeChainCode("mychannel","pnp_go1","registerBorrower",args1);
     }
 

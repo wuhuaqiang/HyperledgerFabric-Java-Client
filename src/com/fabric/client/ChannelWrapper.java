@@ -46,9 +46,6 @@ public class ChannelWrapper {
     }
 
     public CompletableFuture<BlockEvent.TransactionEvent> invokeChainCode(String channelName, String chaincodeName, String fcn, String[] args) throws Exception {
-        final byte[] EXPECTED_EVENT_DATA = "!".getBytes(UTF_8);
-        final String EXPECTED_EVENT_NAME = "event";
-
         Channel channel = fc.getChannelClient(channelName);
         UserContext userContext = CAClient.getUserContext(this.userName, this.org);
         TransactionProposalRequest transactionProposalRequest = TransactionProposalRequest.newInstance(userContext);
@@ -58,10 +55,8 @@ public class ChannelWrapper {
         transactionProposalRequest.setProposalWaitTime(110000);
 
         Map<String, byte[]> tm = new HashMap<>();
-        tm.put("HyperLedgerFabric", "TransactionProposalRequest:JavaSDK".getBytes(UTF_8));
-        tm.put("method", "TransactionProposalRequest".getBytes(UTF_8));
-        tm.put("result", ":)".getBytes(UTF_8));
-        tm.put(EXPECTED_EVENT_NAME, EXPECTED_EVENT_DATA);
+        tm.put("HyperLedgerFabric", "TransactionProposalRequest:Java - SDK".getBytes(UTF_8));
+        tm.put("method", fcn.getBytes(UTF_8));
         transactionProposalRequest.setTransientMap(tm);
 
         Collection<ProposalResponse> response = channel.sendTransactionProposal(transactionProposalRequest);
