@@ -6,30 +6,55 @@ import org.hyperledger.fabric.sdk.Channel;
 import org.hyperledger.fabric.sdk.HFClient;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
 
-public class FabricClient {
+/**
+ *
+ */
+public class FabricClientWrapper {
 
-    //private FabricClient fabricClient;
+    //private FabricClientWrapper fabricClient;
     private HFClient hfClient;
 
-
-    private FabricClient(String userName, String org) throws Exception {
+    /**
+     *
+     * @param userName
+     * @param org
+     * @throws Exception
+     */
+    private FabricClientWrapper(String userName, String org) throws Exception {
         this.hfClient = HFClient.createNewInstance();
         CryptoSuite cryptoSuite = CryptoSuite.Factory.getCryptoSuite();
         this.hfClient.setCryptoSuite(cryptoSuite);
-        UserContext userContext = CAClient.getUserContext(userName, org);
+        UserContext userContext = CAClientWrapper.getUserContext(userName, org);
         this.hfClient.setUserContext(userContext);
     }
 
-    public static FabricClient getFabricClient(String userName, String org) throws Exception {
-        return new FabricClient(userName, org);
+    /**
+     *
+     * @param userName
+     * @param org
+     * @return
+     * @throws Exception
+     */
+    public static FabricClientWrapper getFabricClient(String userName, String org) throws Exception {
+        return new FabricClientWrapper(userName, org);
     }
 
+    /**
+     *
+     * @param channelName
+     * @return
+     * @throws Exception
+     */
     public Channel getChannelClient(String channelName) throws Exception {
         Channel channel = hfClient.loadChannelFromConfig(channelName, LoadConnectionProfile.getConfig());
         channel.initialize();
         return channel;
     }
 
+    /**
+     *
+     * @return
+     */
     public HFClient getHfClient() {
         return hfClient;
     }

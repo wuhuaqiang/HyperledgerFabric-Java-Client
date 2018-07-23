@@ -1,5 +1,4 @@
 import com.fabric.client.ChannelWrapper;
-import com.fabric.client.CAClient;
 import com.fabric.network.LoadConnectionProfile;
 public class Test {
 
@@ -10,7 +9,7 @@ public class Test {
         LoadConnectionProfile networkConfig = LoadConnectionProfile.getInstance();
 
 
-        //CAClient caClient=new CAClient(org);
+        //CAClientWrapper caClient=new CAClientWrapper(org);
        // caClient.enrollAdmin(networkConfig.getCaInfo(org).getRegistrars().iterator().next().getName(),
              //   networkConfig.getCaInfo(org).getRegistrars().iterator().next().getEnrollSecret());
         //caClient.getUserContext("Ankur","HtcczMLzSDjw","org1");

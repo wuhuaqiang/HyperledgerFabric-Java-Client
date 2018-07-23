@@ -12,28 +12,53 @@ import java.util.logging.Logger;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+/**
+ *
+ */
 
 public class ChannelWrapper {
-    private FabricClient fc;
+    private FabricClientWrapper fc;
     private HFClient hfClient;
     private String userName;
     private String org;
 
+    /**
+     *
+     * @param userName
+     * @param org
+     * @throws Exception
+     */
 
     private ChannelWrapper(String userName, String org) throws Exception {
-        this.fc = FabricClient.getFabricClient(userName, org);
+        this.fc = FabricClientWrapper.getFabricClient(userName, org);
         this.hfClient = fc.getHfClient();
         this.userName = userName;
         this.org = org;
     }
 
+    /**
+     *
+     * @param userName
+     * @param org
+     * @return
+     * @throws Exception
+     */
     public static ChannelWrapper getChannelWrapperInstance(String userName, String org) throws Exception {
         return new ChannelWrapper(userName, org);
     }
 
+    /**
+     *
+     * @param channelName
+     * @param chaincodeName
+     * @param fcn
+     * @param args
+     * @return
+     * @throws Exception
+     */
     public Collection<ProposalResponse> queryChaincode(String channelName, String chaincodeName, String fcn, String... args) throws Exception {
         Channel channel = fc.getChannelClient(channelName);
-        QueryByChaincodeRequest queryReq = QueryByChaincodeRequest.newInstance(CAClient.getUserContext(this.userName, this.org));
+        QueryByChaincodeRequest queryReq = QueryByChaincodeRequest.newInstance(CAClientWrapper.getUserContext(this.userName, this.org));
         queryReq.setChaincodeID(ChaincodeID.newBuilder().setName(chaincodeName).build());
         queryReq.setFcn(fcn);
         if (args != null) {
@@ -45,9 +70,18 @@ public class ChannelWrapper {
 
     }
 
+    /**
+     *
+     * @param channelName
+     * @param chaincodeName
+     * @param fcn
+     * @param args
+     * @return
+     * @throws Exception
+     */
     public CompletableFuture<BlockEvent.TransactionEvent> invokeChainCode(String channelName, String chaincodeName, String fcn, String[] args) throws Exception {
         Channel channel = fc.getChannelClient(channelName);
-        UserContext userContext = CAClient.getUserContext(this.userName, this.org);
+        UserContext userContext = CAClientWrapper.getUserContext(this.userName, this.org);
         TransactionProposalRequest transactionProposalRequest = TransactionProposalRequest.newInstance(userContext);
         transactionProposalRequest.setChaincodeID(ChaincodeID.newBuilder().setName(chaincodeName).build());
         transactionProposalRequest.setFcn(fcn);
@@ -73,6 +107,13 @@ public class ChannelWrapper {
         return commitResp;
     }
 
+    /**
+     *
+     * @param txnId
+     * @param channelName
+     * @return
+     * @throws Exception
+     */
     public TransactionInfo queryByTransactionId(String txnId, String channelName) throws Exception {
         Channel channel = fc.getChannelClient(channelName);
         TransactionInfo info = null;

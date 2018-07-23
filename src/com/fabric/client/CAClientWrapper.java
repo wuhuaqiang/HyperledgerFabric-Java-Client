@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * @author Vishal
  */
 
-public class CAClient {
+public class CAClientWrapper {
 
     private HFCAClient hfcaClient;
     private static String org;
@@ -30,9 +30,9 @@ public class CAClient {
      * @param org - organization name
      * @throws Exception
      */
-    public CAClient(String org) throws Exception {
+    public CAClientWrapper(String org) throws Exception {
         this.config = LoadConnectionProfile.getInstance();
-        CAClient.org = org;
+        CAClientWrapper.org = org;
         this.hfcaClient = HFCAClient.createNewInstance(LoadConnectionProfile.getCaInfo(org));
     }
 
@@ -49,7 +49,7 @@ public class CAClient {
         if (userContext != null) {
             return userContext;
         }
-        Logger.getLogger(CAClient.class.getName()).log(Level.SEVERE, "Userconext not found in store for " + userName + ". Enroll the user.");
+        Logger.getLogger(CAClientWrapper.class.getName()).log(Level.SEVERE, "Userconext not found in store for " + userName + ". Enroll the user.");
         return null;
 
     }
@@ -67,11 +67,11 @@ public class CAClient {
         UserContext adminContext;
         adminContext = Util.readUserContext(org, name);
         if (adminContext != null) {
-            Logger.getLogger(CAClient.class.getName()).log(Level.WARNING, "Admin is already enrolled. Therefore skipping...admin enrollment");
+            Logger.getLogger(CAClientWrapper.class.getName()).log(Level.WARNING, "Admin is already enrolled. Therefore skipping...admin enrollment");
         }
 
         Enrollment enrollment = hfcaClient.enroll(name, secret);
-        Logger.getLogger(CAClient.class.getName()).log(Level.INFO, "Admin enrolled.");
+        Logger.getLogger(CAClientWrapper.class.getName()).log(Level.INFO, "Admin enrolled.");
 
         adminContext = new UserContext();
         adminContext.setName(name);
@@ -96,13 +96,13 @@ public class CAClient {
         UserContext userContext;
         userContext = Util.readUserContext(org, userName);
         if (userContext != null) {
-            Logger.getLogger(CAClient.class.getName()).log(Level.WARNING, "UserName - " + userName + "  is already registered. Therefore skipping..... registeration");
+            Logger.getLogger(CAClientWrapper.class.getName()).log(Level.WARNING, "UserName - " + userName + "  is already registered. Therefore skipping..... registeration");
 
         }
         RegistrationRequest regRequest = new RegistrationRequest(userName, org);
         UserContext registrarContext = Util.readUserContext(org, registrarAdmin);
         if (registrarContext == null) {
-            Logger.getLogger(CAClient.class.getName()).log(Level.SEVERE, "Registrar " + registrarAdmin + " is not enrolled. Enroll Registrar.");
+            Logger.getLogger(CAClientWrapper.class.getName()).log(Level.SEVERE, "Registrar " + registrarAdmin + " is not enrolled. Enroll Registrar.");
 
         }
         String enrollSecret = hfcaClient.register(regRequest, registrarContext);
@@ -116,7 +116,7 @@ public class CAClient {
         userContext.setName(userName);
 
         Util.writeUserContext(userContext);
-        Logger.getLogger(CAClient.class.getName()).log(Level.INFO, "UserName - " + userName + "  is successfully registered and enrolled by registrar -  " + registrarAdmin);
+        Logger.getLogger(CAClientWrapper.class.getName()).log(Level.INFO, "UserName - " + userName + "  is successfully registered and enrolled by registrar -  " + registrarAdmin);
 
     }
 
@@ -135,12 +135,12 @@ public class CAClient {
 
         UserContext userContext = new UserContext();
         userContext.setMspId(LoadConnectionProfile.getOrgInfo(org).getMspId());
-        userContext.setAffiliation(CAClient.org);
+        userContext.setAffiliation(CAClientWrapper.org);
         userContext.setEnrollment(enrollment);
         userContext.setName(userName);
 
         Util.writeUserContext(userContext);
-        Logger.getLogger(CAClient.class.getName()).log(Level.INFO, "UserName - " + userName + "  is successfully enrolled ");
+        Logger.getLogger(CAClientWrapper.class.getName()).log(Level.INFO, "UserName - " + userName + "  is successfully enrolled ");
         return userContext;
     }
 }
