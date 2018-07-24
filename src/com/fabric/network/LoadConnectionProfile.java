@@ -6,6 +6,7 @@ import org.hyperledger.fabric.sdk.NetworkConfig;
 import java.io.File;
 
 /**
+ *@author Vishal Y
  * Singleton implementation
  * Load the network config from connection profile file.
  */
