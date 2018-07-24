@@ -6,7 +6,8 @@ import org.hyperledger.fabric.sdk.NetworkConfig;
 import java.io.File;
 
 /**
- *
+ * Singleton implementation
+ * Load the network config from connection profile file.
  */
 public class LoadConnectionProfile {
 
@@ -15,19 +16,19 @@ public class LoadConnectionProfile {
     private static NetworkConfig config;
 
     /**
+     * Constructor
      *
      * @throws Exception
      */
     private LoadConnectionProfile() throws Exception {
-
         config = NetworkConfig.fromJsonFile(new File("src/com/fabric/config/network-config.json"));
 
     }
 
     /**
-     *
+     * Get Certificate Authority config for an organization
      * @param org
-     * @return
+     * @return CAInfo
      * @throws Exception
      */
     public static NetworkConfig.CAInfo getCaInfo(String org) throws Exception {
@@ -38,9 +39,9 @@ public class LoadConnectionProfile {
     }
 
     /**
-     *
+     * Get organization config
      * @param org
-     * @return
+     * @return OrgInfo
      * @throws Exception
      */
     public static NetworkConfig.OrgInfo getOrgInfo(String org) throws Exception {
@@ -51,8 +52,8 @@ public class LoadConnectionProfile {
     }
 
     /**
-     *
-     * @return
+     * Return class instance
+     * @return LoadConnectionProfile
      * @throws Exception
      */
     public static LoadConnectionProfile getInstance() throws Exception {
@@ -66,8 +67,8 @@ public class LoadConnectionProfile {
     }
 
     /**
-     *
-     * @return
+     * Return the complete configuartion info
+     * @return NetworkConfig
      * @throws Exception
      */
     public static NetworkConfig getConfig() throws Exception {
