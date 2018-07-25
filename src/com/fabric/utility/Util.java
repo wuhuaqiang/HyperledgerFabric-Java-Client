@@ -1,4 +1,4 @@
-package com.fabric.util;
+package com.fabric.utility;
 
 import com.fabric.participant.UserContext;
 

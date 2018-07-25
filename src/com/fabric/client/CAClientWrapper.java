@@ -2,7 +2,7 @@ package com.fabric.client;
 
 import com.fabric.network.LoadConnectionProfile;
 import com.fabric.participant.UserContext;
-import com.fabric.util.Util;
+import com.fabric.utility.Util;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
 import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
@@ -19,11 +19,11 @@ import java.util.logging.Logger;
 public class CAClientWrapper {
 
     private HFCAClient hfcaClient;
-    private static String org;
+    private String org;
     
 
-    public CAClientWrapper(String org) throws Exception {
-        CAClientWrapper.org = org;
+    public CAClientWrapper(String org) {
+        this.org = org;
         init();
     }
 
@@ -42,8 +42,8 @@ public class CAClientWrapper {
      * @return UserContext, null if not found
      * @throws Exception
      */
-    public static UserContext getUserContext(String userName, String org) throws Exception {
-        UserContext userContext = null;
+    public static UserContext getUserContext(String userName, String org)  {
+        UserContext userContext;
         userContext = Util.readUserContext(org, userName);
         if (userContext != null) {
             return userContext;
@@ -134,7 +134,7 @@ public class CAClientWrapper {
 
         UserContext userContext = new UserContext();
         userContext.setMspId(LoadConnectionProfile.getOrgInfo(org).getMspId());
-        userContext.setAffiliation(CAClientWrapper.org);
+        userContext.setAffiliation(this.org);
         userContext.setEnrollment(enrollment);
         userContext.setName(userName);
 

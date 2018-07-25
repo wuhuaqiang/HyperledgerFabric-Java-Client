@@ -27,7 +27,7 @@ public class FabricClientWrapper {
      */
     void init() {
         try {
-            HFClient hfClient = HFClient.createNewInstance();
+            this.hfClient = HFClient.createNewInstance();
             CryptoSuite cryptoSuite = CryptoSuite.Factory.getCryptoSuite();
             this.hfClient.setCryptoSuite(cryptoSuite);
             UserContext userContext = CAClientWrapper.getUserContext(userName, org);
@@ -67,7 +67,7 @@ public class FabricClientWrapper {
      *
      * @return HFClient
      */
-    public HFClient getHfClient() throws Exception {
+    public HFClient getHfClient() {
         return hfClient;
     }
 
