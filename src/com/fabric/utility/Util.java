@@ -14,7 +14,6 @@ public class Util {
      * Serialize user
      *
      * @param userContext
-     * @throws Exception
      */
     public static void writeUserContext(UserContext userContext) {
         ObjectOutputStream out = null;
@@ -35,12 +34,14 @@ public class Util {
             e.printStackTrace();
         } finally {
             try {
-                out.close();
+                if (out != null)
+                    out.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             try {
-                file.close();
+                if (file != null)
+                    file.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -71,12 +72,14 @@ public class Util {
             e.printStackTrace();
         } finally {
             try {
-                in.close();
+                if (in != null)
+                    in.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             try {
-                fileStream.close();
+                if (fileStream != null)
+                    fileStream.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
