@@ -89,7 +89,7 @@ Now, of course, we would not like to use this admin user to invoke all transacti
         //If registration is successful, in return we will get a secret key for registered user. We will use the secret key to enrol TJ with the client in the next step.
 
 ```
-
+```
 
    - 2. <b>Enrol user:</b>
 
@@ -107,6 +107,7 @@ Now, of course, we would not like to use this admin user to invoke all transacti
         // Save user context in msp folder.
         Util.writeUserContext(userContext);
         }
+```
 
 On successful enrolment, user-context for TJ will be saved under msp folder.
 
