@@ -3,7 +3,7 @@ A Java based fabric client.
 
 <b><u>Prerequsite:</u></b>
 
-<b>1. Fabric network:</b> A running fabric network. See [this](https://hyperledger-fabric.readthedocs.io/en/release-1.2/build_network.html) tutorial to quickly bootstap a network. To practice on this 
+<b>1. Fabric network:</b> A running fabric network. See [this](https://hyperledger-fabric.readthedocs.io/en/release-1.2/write_first_app.html) tutorial to quickly bootstap a network with a fabric-ca instance. To practice on this 
 client, my recommendation would be to start a network on <b>IBM Blockchain Platform</b>. It enables fast and easy setup of a multi org blockchain network and yes, it is free of cost under Starter plan.
 [Here](https://console.bluemix.net/docs/services/blockchain/starter_plan.html#overview) is a how you can setup a blockchain network in minutes.
 
