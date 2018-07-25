@@ -12,36 +12,46 @@ import org.hyperledger.fabric.sdk.security.CryptoSuite;
  */
 public class FabricClientWrapper {
 
-    //private FabricClientWrapper fabricClient;
+    private String org;
+    private String userName;
     private HFClient hfClient;
 
-    /**
-     *Constructor, intantiate an object HFClient class
-     * @param userName
-     * @param org
-     * @throws Exception
-     */
-    private FabricClientWrapper(String userName, String org) throws Exception {
-        this.hfClient = HFClient.createNewInstance();
-        CryptoSuite cryptoSuite = CryptoSuite.Factory.getCryptoSuite();
-        this.hfClient.setCryptoSuite(cryptoSuite);
-        UserContext userContext = CAClientWrapper.getUserContext(userName, org);
-        this.hfClient.setUserContext(userContext);
+    private FabricClientWrapper(String userName, String org) {
+        this.org = org;
+        this.userName = userName;
+        init();
     }
 
     /**
-     *Return instance of FabricClientWrapper
+     *
+     */
+    void init() {
+        try {
+            HFClient hfClient = HFClient.createNewInstance();
+            CryptoSuite cryptoSuite = CryptoSuite.Factory.getCryptoSuite();
+            this.hfClient.setCryptoSuite(cryptoSuite);
+            UserContext userContext = CAClientWrapper.getUserContext(userName, org);
+            this.hfClient.setUserContext(userContext);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Return instance of FabricClientWrapper
+     *
      * @param userName
      * @param org
      * @return FabricClientWrapper
      * @throws Exception
      */
-    public static FabricClientWrapper getFabricClient(String userName, String org) throws Exception {
+    public static FabricClientWrapper getFabricClient(String userName, String org) {
         return new FabricClientWrapper(userName, org);
     }
 
     /**
      * Return an instance of Channel. The channel client provide various transaction functions
+     *
      * @param channelName
      * @return Channel
      * @throws Exception
@@ -53,10 +63,11 @@ public class FabricClientWrapper {
     }
 
     /**
-     *Return HFClient object
+     * Return HFClient object
+     *
      * @return HFClient
      */
-    public HFClient getHfClient() {
+    public HFClient getHfClient() throws Exception {
         return hfClient;
     }
 
