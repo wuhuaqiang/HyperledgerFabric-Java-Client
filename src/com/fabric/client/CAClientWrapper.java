@@ -20,20 +20,19 @@ public class CAClientWrapper {
 
     private HFCAClient hfcaClient;
     private static String org;
-    private LoadConnectionProfile config;
-    // private static final Log logger = LogFactory.getLog();
+    
 
-
-    /**
-     * Constructor - loads the CA configuration from network configuration file and intitialize the caClient for organization org
-     *
-     * @param org - organization name
-     * @throws Exception
-     */
     public CAClientWrapper(String org) throws Exception {
-        this.config = LoadConnectionProfile.getInstance();
         CAClientWrapper.org = org;
-        this.hfcaClient = HFCAClient.createNewInstance(LoadConnectionProfile.getCaInfo(org));
+        init();
+    }
+
+    void init() {
+        try {
+            this.hfcaClient = HFCAClient.createNewInstance(LoadConnectionProfile.getCaInfo(org));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -44,13 +43,13 @@ public class CAClientWrapper {
      * @throws Exception
      */
     public static UserContext getUserContext(String userName, String org) throws Exception {
-        UserContext userContext;
+        UserContext userContext = null;
         userContext = Util.readUserContext(org, userName);
         if (userContext != null) {
             return userContext;
         }
         Logger.getLogger(CAClientWrapper.class.getName()).log(Level.SEVERE, "Userconext not found in store for " + userName + ". Enroll the user.");
-        return null;
+        return userContext;
 
     }
 
