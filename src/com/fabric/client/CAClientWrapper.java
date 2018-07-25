@@ -27,7 +27,7 @@ public class CAClientWrapper {
         init();
     }
 
-    void init() {
+    void  init() {
         try {
             this.hfcaClient = HFCAClient.createNewInstance(LoadConnectionProfile.getCaInfo(org));
         } catch (Exception e) {
@@ -103,7 +103,7 @@ public class CAClientWrapper {
         UserContext registrarContext = Util.readUserContext(org, registrarAdmin);
         if (registrarContext == null) {
             Logger.getLogger(CAClientWrapper.class.getName()).log(Level.SEVERE, "Registrar " + registrarAdmin + " is not enrolled. Enroll Registrar.");
-
+            throw new Exception("registrar context not found");
         }
         String enrollSecret = hfcaClient.register(regRequest, registrarContext);
 

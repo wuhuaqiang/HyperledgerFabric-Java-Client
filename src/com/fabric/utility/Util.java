@@ -19,7 +19,7 @@ public class Util {
         ObjectOutputStream out = null;
         FileOutputStream file = null;
         try {
-            String directoryPath = "cred/" + userContext.getAffiliation();
+            String directoryPath = "msp/" + userContext.getAffiliation();
             String filePath = directoryPath + "/" + userContext.getName() + ".context";
             File directory = new File(directoryPath);
             if (!directory.exists())
@@ -61,7 +61,7 @@ public class Util {
         FileInputStream fileStream = null;
         ObjectInputStream in = null;
         try {
-            String filePath = "cred/" + affiliation + "/" + username + ".context";
+            String filePath = "msp/" + affiliation + "/" + username + ".context";
             File file = new File(filePath);
             if (file.exists()) {
                 fileStream = new FileInputStream(filePath);

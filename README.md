@@ -61,15 +61,53 @@ On successful enrolment, admin user context will be saved under msp folder.
 
 <b>Step 1: Registering and enrolling user:</b>
 Now, of course, we would not like to use this admin user to invoke all transaction on blockchain network. We may require access control decisions in our chaincode based on the attributes of the identity of the client (i.e. the invoker of the chain code), called [ABAC](https://hyperledger-fabric-ca.readthedocs.io/en/release-1.1/users-guide.html#attribute-based-access-control) in short. so the whole point here is to enable other users to interact with the network and this is a two-step process:
-- 1. Register the user with CA:
+- 1. <b>Register the user with CA:</b>
 
-     The identity performing the registration, admin in our case, must be already enrolled and have proper access rights. As we have already enrolled admin in step 1, we would use admin(registrar) user-context to register Tau_Junior (my pet :) ) with the CA.
+     The identity performing the registration, admin in our case, must be already enrolled and have proper access rights. As we have already enrolled admin in step 1, we would use admin(registrar) user-context to register new users.
 
-     //code
+```Java
+     public void registerUser(String userName, String registrarAdmin){
+        UserContext userContext;
 
-     If registration is successful, in return we will get a secret key for Tau_Junior( or TJ in short). We will use the secret key to enrol TJ with the client in the next step.
-- 2. Enrol user TJ -
+        //read user context from msp folder
+        userContext = Util.readUserContext(org, userName);
+        if (userContext != null) {
+            //user is already registered and enrolled, do nothing.
+            return;
+        }
 
-     On successful enrolment, user-context for TJ will be saved under msp folder.
+        //User is not registered, construct a registeration request
+        RegistrationRequest regRequest = new RegistrationRequest(userName, org);
+
+        //Reterive registrar(admin) usercontext from msp folder
+        UserContext registrarContext = Util.readUserContext(org, registrarAdmin);
+
+        // send a registeration request for user with admin as registrar
+        String enrollSecret = hfcaClient.register(regRequest, registrarContext);
+        .
+        .
+        //If registration is successful, in return we will get a secret key for registered user. We will use the secret key to enrol TJ with the client in the next step.
+
+```
+
+
+   - 2. <b>Enrol user:</b>
+
+
+        // make enrol call to ca server
+        Enrollment enrollment = hfcaClient.enroll(userName, enrollSecret);
+
+        // create user context for enrolled user
+        userContext = new UserContext();
+        userContext.setMspId(LoadConnectionProfile.getOrgInfo(org).getMspId());
+        userContext.setAffiliation(org); //organization user belongs to
+        userContext.setEnrollment(enrollment);
+        userContext.setName(userName);
+
+        // Save user context in msp folder.
+        Util.writeUserContext(userContext);
+        }
+
+On successful enrolment, user-context for TJ will be saved under msp folder.
 
 
