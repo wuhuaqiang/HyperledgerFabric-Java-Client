@@ -17,6 +17,8 @@ public class Util {
      * @throws Exception
      */
     public static void writeUserContext(UserContext userContext) {
+        ObjectOutputStream out = null;
+        FileOutputStream file = null;
         try {
             String directoryPath = "cred/" + userContext.getAffiliation();
             String filePath = directoryPath + "/" + userContext.getName() + ".context";
@@ -24,16 +26,24 @@ public class Util {
             if (!directory.exists())
                 directory.mkdirs();
 
-            FileOutputStream file = null;
+            file = null;
             file = new FileOutputStream(filePath);
-            ObjectOutputStream out = new ObjectOutputStream(file);
+            out = new ObjectOutputStream(file);
 
             out.writeObject(userContext);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            out.close();
-            file.close();
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                file.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -47,19 +57,29 @@ public class Util {
      */
     public static UserContext readUserContext(String affiliation, String username) {
         UserContext uContext = null;
+        FileInputStream fileStream = null;
+        ObjectInputStream in = null;
         try {
             String filePath = "cred/" + affiliation + "/" + username + ".context";
             File file = new File(filePath);
             if (file.exists()) {
-                FileInputStream fileStream = new FileInputStream(filePath);
-                ObjectInputStream in = new ObjectInputStream(fileStream);
+                fileStream = new FileInputStream(filePath);
+                in = new ObjectInputStream(fileStream);
                 uContext = (UserContext) in.readObject();
             }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            in.close();
-            fileStream.close();
+            try {
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                fileStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return uContext;
         }
 
