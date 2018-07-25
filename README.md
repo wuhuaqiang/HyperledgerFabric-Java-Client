@@ -89,10 +89,9 @@ Now, of course, we would not like to use this admin user to invoke all transacti
         //If registration is successful, in return we will get a secret key for registered user. We will use the secret key to enrol TJ with the client in the next step.
 
 ```
-```
 
-   - 2. <b>Enrol user:</b>
-
+- 2. <b>Enrol user:</b>
+```Java
 
         // make enrol call to ca server
         Enrollment enrollment = hfcaClient.enroll(userName, enrollSecret);
