@@ -1,4 +1,3 @@
-
 # Fabric-Java-Client(Work in progress :) )
 A Java based fabric client.
 
@@ -36,8 +35,7 @@ find 'registrar' object under which 'enrollId' there is an 'enrollSecret' proper
 On successful enrolment, admin user context will be saved under directory /cred.
 
 <b>Step 1: Registering and enrolling user:</b>
-Now ofcurse, we would not like to use admin user to invoke all transaction on blockchain network. We may require access control decisions in your chaincode based on the attributes of identity of the client (i.e. the invoker of the chaincode), in short called [ABAC]|(https://hyperledger-fabric-ca.readthedocs.io/en/release-1.1/users-guide.html#attribute-based-access-control)
-Whole point heer is to enable other users to interact with the network. This is a two step process:
+Now ofcurse, we would not like to use admin user to invoke all transaction on blockchain network. We may require access control decisions in your chaincode based on the attributes of identity of the client (i.e. the invoker of the chaincode), called [ABAC](https://hyperledger-fabric-ca.readthedocs.io/en/release-1.1/users-guide.html#attribute-based-access-control) in short. so the whole point heer is to enable other users to interact with the network. This is a two step process:
 - 1. Register the user with CA:
      
      The identity performing the registeration, admin in our case, must be already enrolled and have proper access rights. As we have already enrolled admin in step 1, we would use admin usercontext to register Tau_Junior (my pet :) ) with the CA.
