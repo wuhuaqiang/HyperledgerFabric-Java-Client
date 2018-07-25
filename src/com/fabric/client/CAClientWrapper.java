@@ -20,7 +20,7 @@ public class CAClientWrapper {
 
     private HFCAClient hfcaClient;
     private String org;
-    
+
 
     public CAClientWrapper(String org) {
         this.org = org;
@@ -42,7 +42,7 @@ public class CAClientWrapper {
      * @return UserContext, null if not found
      * @throws Exception
      */
-    public static UserContext getUserContext(String userName, String org)  {
+    public static UserContext getUserContext(String userName, String org) {
         UserContext userContext;
         userContext = Util.readUserContext(org, userName);
         if (userContext != null) {
@@ -67,6 +67,7 @@ public class CAClientWrapper {
         adminContext = Util.readUserContext(org, name);
         if (adminContext != null) {
             Logger.getLogger(CAClientWrapper.class.getName()).log(Level.WARNING, "Admin is already enrolled. Therefore skipping...admin enrollment");
+            return;
         }
 
         Enrollment enrollment = hfcaClient.enroll(name, secret);
@@ -96,7 +97,7 @@ public class CAClientWrapper {
         userContext = Util.readUserContext(org, userName);
         if (userContext != null) {
             Logger.getLogger(CAClientWrapper.class.getName()).log(Level.WARNING, "UserName - " + userName + "  is already registered. Therefore skipping..... registeration");
-
+            return;
         }
         RegistrationRequest regRequest = new RegistrationRequest(userName, org);
         UserContext registrarContext = Util.readUserContext(org, registrarAdmin);
