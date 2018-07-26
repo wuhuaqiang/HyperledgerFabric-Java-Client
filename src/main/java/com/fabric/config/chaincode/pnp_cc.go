@@ -22,7 +22,7 @@ type Borrower struct {
 	Name           string       `json:"name"`           //
 	Dob            string       `json:"dob"`            //
 	Maritialstatus string       `json:"maritialStatus"` //
-	RegisterdDate  time.Time    `json:"regDate"`        //
+	RegisterdDate  string       `json:"regDate"`        //
 	Contact        ContactPoint `json:"contact"`
 }
 
@@ -53,34 +53,34 @@ type Lender struct {
 	Name           string       `json:"name"`           //
 	Dob            string       `json:"dob"`            //
 	Maritialstatus string       `json:"maritialStatus"` //
-	RegisterdDate  time.Time    `json:"regDate"`        //
+	RegisterdDate  string       `json:"regDate"`        //
 	Contact        ContactPoint `json:"contact"`
 	AccountNo      string       `json:"accountNo"`
 	AccountBal     float64      `json:"acountBalance"`
 }
 type LendingProposal struct {
-	ObjectType   string    `json:"docType"`
-	LenderId     string    `json:"lenderId"`     //
-	CommitAmount float64   `json:"commitAmount"` //
-	RemAmount    float64   `json:"remAmount"`    //
-	IntRate      float64   `json:"intRate"`      //
-	LoanCurrency string    `json:"loanCurrency"` //
-	Status       string    `json:"status"`       //
-	RegDate      time.Time `json:"appliedDate"`  //
-	ProposalId   string    `json:"proposalId"`   //
+	ObjectType   string  `json:"docType"`
+	LenderId     string  `json:"lenderId"`     //
+	CommitAmount float64 `json:"commitAmount"` //
+	RemAmount    float64 `json:"remAmount"`    //
+	IntRate      float64 `json:"intRate"`      //
+	LoanCurrency string  `json:"loanCurrency"` //
+	Status       string  `json:"status"`       //
+	RegDate      string  `json:"appliedDate"`  //
+	ProposalId   string  `json:"proposalId"`   //
 }
 
 type LoanContract struct {
-	ObjectType        string    `json:"docType"`
-	LoanContractId    string    `json:"loanContractId"`
-	LoanApplicationNo string    `json:"loaApplId"`
-	Borrower          string    `json:"borrowerId"`
-	LendingProposalId string    `json:"lendingProposalId"`
-	Lender            string    `json:"lenderId"`
-	SanctionedAmount  float64   `json:"sanctionedAmount"`
-	IntRate           float64   `json:"intRate"`
-	RepaymentTerm     int       `json:"repaymentTerm"`
-	RegDate           time.Time `json:"appliedDate"` //
+	ObjectType        string  `json:"docType"`
+	LoanContractId    string  `json:"loanContractId"`
+	LoanApplicationNo string  `json:"loaApplId"`
+	Borrower          string  `json:"borrowerId"`
+	LendingProposalId string  `json:"lendingProposalId"`
+	Lender            string  `json:"lenderId"`
+	SanctionedAmount  float64 `json:"sanctionedAmount"`
+	IntRate           float64 `json:"intRate"`
+	RepaymentTerm     int     `json:"repaymentTerm"`
+	RegDate           string  `json:"appliedDate"` //
 }
 
 //Init
@@ -136,7 +136,8 @@ func (t *PnpChaincode) RegisterContract(stub shim.ChaincodeStubInterface, args [
 	contract := LoanContract{ObjectType: "CONTRACT", LoanContractId: loanContractId,
 		LoanApplicationNo: loanApplId, Borrower: borrower, LendingProposalId: lendingProposalId,
 		Lender: lenderId, SanctionedAmount: sanctionAmount, IntRate: intRate, RepaymentTerm: repaymentTerm,
-		RegDate: time.Now()}
+		RegDate: ""}
+	//time.Now()
 
 	contractJSONBytes, err := json.Marshal(contract)
 	if err != nil {
@@ -178,7 +179,7 @@ func (t *PnpChaincode) RegisterLender(stub shim.ChaincodeStubInterface, args []s
 	}
 
 	objType := "LNDR"
-	regDate := time.Now()
+	regDate := ""
 	contact := ContactPoint{addrLine: addrLine, city: city, province: province, postalCode: postalCode, countryCode: countryCode, telNo: telephoneNo}
 	borrower := Lender{ObjectType: objType, IdentityNo: identityNo, Name: name, Dob: dob, Maritialstatus: maritialStatus, RegisterdDate: regDate, Contact: contact, AccountNo: accountNo, AccountBal: accountBal}
 	borrowerJSONasBytes, err := json.Marshal(borrower)
@@ -216,7 +217,8 @@ func (t *PnpChaincode) RegisterBorrower(stub shim.ChaincodeStubInterface, args [
 	}
 
 	objType := "BRWR"
-	regDate := time.Now()
+	regDate := ""
+	//time.Now()
 	contact := ContactPoint{addrLine: addrLine, city: city, province: province, postalCode: postalCode, countryCode: countryCode, telNo: telephoneNo}
 
 	borrower := Borrower{ObjectType: objType, IdentityNo: identityNo, Name: name, Dob: dob, Maritialstatus: maritialStatus, RegisterdDate: regDate, Contact: contact}
@@ -261,7 +263,7 @@ func (t *PnpChaincode) SubmitLendingProposal(stub shim.ChaincodeStubInterface, a
 	now := time.Now()
 	ms := now.Unix() * 1000
 	proposalId := args[0] + strconv.FormatInt(ms, 10)
-	lendingProposal := LendingProposal{ObjectType: "LEPRPL", LenderId: args[0], CommitAmount: commitAmount, RemAmount: remAmount, IntRate: intRate, LoanCurrency: args[4], Status: "PROPOSED", RegDate: time.Now(), ProposalId: proposalId}
+	lendingProposal := LendingProposal{ObjectType: "LEPRPL", LenderId: args[0], CommitAmount: commitAmount, RemAmount: remAmount, IntRate: intRate, LoanCurrency: args[4], Status: "PROPOSED", RegDate: "", ProposalId: proposalId}
 	appJSONBytes, err := json.Marshal(lendingProposal)
 	if err != nil {
 		return shim.Error(err.Error())
@@ -349,6 +351,7 @@ func (t *PnpChaincode) QueryParticipant(stub shim.ChaincodeStubInterface, args [
 	return shim.Success(paricipantDataBytes)
 
 }
+
 // localhost:4000/channels/mychannel/chaincodes/pnp_go1?peer=org1-peer1&fcn=getQueryResult&args=["{\"selector\":{\"docType\":\"LEPRPL\", \"commitAmount\":{\"$gte\":1000}}}"]
 func (t *PnpChaincode) GetQueryResult(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 

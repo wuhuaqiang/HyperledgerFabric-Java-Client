@@ -23,6 +23,18 @@ public class FabricClientWrapper {
     }
 
     /**
+     * Return instance of FabricClientWrapper
+     *
+     * @param userName
+     * @param org
+     * @return FabricClientWrapper
+     * @throws Exception
+     */
+    public static FabricClientWrapper getFabricClient(String userName, String org) {
+        return new FabricClientWrapper(userName, org);
+    }
+
+    /**
      *
      */
     void init() {
@@ -35,18 +47,6 @@ public class FabricClientWrapper {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Return instance of FabricClientWrapper
-     *
-     * @param userName
-     * @param org
-     * @return FabricClientWrapper
-     * @throws Exception
-     */
-    public static FabricClientWrapper getFabricClient(String userName, String org) {
-        return new FabricClientWrapper(userName, org);
     }
 
     /**

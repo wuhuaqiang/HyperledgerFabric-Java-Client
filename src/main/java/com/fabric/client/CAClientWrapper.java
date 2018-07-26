@@ -27,14 +27,6 @@ public class CAClientWrapper {
         init();
     }
 
-    void  init() {
-        try {
-            this.hfcaClient = HFCAClient.createNewInstance(LoadConnectionProfile.getCaInfo(org));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     /**
      * Return UserContext for user from store /cred directory.
      *
@@ -51,6 +43,14 @@ public class CAClientWrapper {
         Logger.getLogger(CAClientWrapper.class.getName()).log(Level.SEVERE, "Userconext not found in store for " + userName + ". Enroll the user.");
         return userContext;
 
+    }
+
+    void init() {
+        try {
+            this.hfcaClient = HFCAClient.createNewInstance(LoadConnectionProfile.getCaInfo(org));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

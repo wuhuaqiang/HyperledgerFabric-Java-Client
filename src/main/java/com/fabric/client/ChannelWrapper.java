@@ -6,6 +6,7 @@ import org.hyperledger.fabric.sdk.*;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,20 +35,20 @@ public class ChannelWrapper {
     }
 
     /**
-     *
-     */
-    void init() {
-
-        this.fc = FabricClientWrapper.getFabricClient(userName, org);
-    }
-
-    /**
      * @param userName
      * @param org
      * @return
      */
     public static ChannelWrapper getChannelWrapperInstance(String userName, String org) {
         return new ChannelWrapper(userName, org);
+    }
+
+    /**
+     *
+     */
+    void init() {
+
+        this.fc = FabricClientWrapper.getFabricClient(userName, org);
     }
 
     /**
@@ -99,20 +100,28 @@ public class ChannelWrapper {
             transactionProposalRequest.setProposalWaitTime(110000);
 
             Map<String, byte[]> tm = new HashMap<>();
-            tm.put("HyperLedgerFabric", "TransactionProposalRequest:Java - SDK".getBytes(UTF_8));
+            tm.put("HyperLedgerFabric", "Java - SDK".getBytes(UTF_8));
             tm.put("method", fcn.getBytes(UTF_8));
             transactionProposalRequest.setTransientMap(tm);
 
             Collection<ProposalResponse> response = channel.sendTransactionProposal(transactionProposalRequest);
             for (ProposalResponse resp : response) {
                 ChaincodeResponse.Status status = resp.getStatus();
-                Logger.getLogger(ChannelWrapper.class.getName()).log(Level.INFO, "Invoked chaincode " + chaincodeName + " - " + fcn + ". Status - " + status);
+                Logger.getLogger(ChannelWrapper.class.getName()).log(Level.WARNING, "Invoked chaincode " + chaincodeName + " - " + fcn + ". Status - " + status);
 
                 if (status.getStatus() != 200) {
                     throw new Exception(resp.getMessage());
                 }
             }
+
+            Collection<Set<ProposalResponse>> proposalConsistencySets = SDKUtils.getProposalConsistencySets(response);
+            if (proposalConsistencySets.size() != 1) {
+
+                throw new Exception("Expected only one set of consistent proposal responses but got more");
+            }
+
             commitResp = channel.sendTransaction(response, userContext);
+
             //Logger.getLogger(ChannelWrapper.class.getName()).log(Level.INFO, "Invoked chaincode " + chaincodeName + " - " + fcn + ". Status - " + commitResp.toString());
         } catch (Exception e) {
             e.printStackTrace();

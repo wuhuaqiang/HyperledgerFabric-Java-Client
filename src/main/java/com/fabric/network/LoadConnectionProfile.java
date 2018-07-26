@@ -21,12 +21,14 @@ public class LoadConnectionProfile {
      * @throws Exception
      */
     private LoadConnectionProfile() throws Exception {
-        config = NetworkConfig.fromJsonFile(new File("src/com/fabric/config/network-config.json"));
+
+        config = NetworkConfig.fromJsonFile(new File("D:\\Fabric-Java-Client\\src\\main\\java\\com\\fabric\\config\\network-config.json"));
 
     }
 
     /**
      * Get Certificate Authority config for an organization
+     *
      * @param org
      * @return CAInfo
      * @throws Exception
@@ -41,6 +43,7 @@ public class LoadConnectionProfile {
 
     /**
      * Get organization config
+     *
      * @param org
      * @return OrgInfo
      * @throws Exception
@@ -54,6 +57,7 @@ public class LoadConnectionProfile {
 
     /**
      * Return class instance
+     *
      * @return LoadConnectionProfile
      * @throws Exception
      */
@@ -69,6 +73,7 @@ public class LoadConnectionProfile {
 
     /**
      * Return the complete configuartion info
+     *
      * @return NetworkConfig
      * @throws Exception
      */
