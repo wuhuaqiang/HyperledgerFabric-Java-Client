@@ -10,7 +10,7 @@ public class Test {
         LoadConnectionProfile networkConfig = LoadConnectionProfile.getInstance();
 
 
-        // CAClientWrapper caClient=new CAClientWrapper(org);
+        //CAClientWrapper caClient = new CAClientWrapper(org);
         //caClient.enrollAdmin(LoadConnectionProfile.getCaInfo(org).getRegistrars().iterator().next().getName(),
         //   LoadConnectionProfile.getCaInfo(org).getRegistrars().iterator().next().getEnrollSecret());
         //caClient.getUserContext("Ankur","HtcczMLzSDjw","org1");
