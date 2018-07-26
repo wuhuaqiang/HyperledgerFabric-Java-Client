@@ -18,7 +18,7 @@ A sample connection profile has been provided under directory /src/com/fabric/co
 A detailed documentation on how to create a connection profile for your network is available [here.](
 https://hyperledger.github.io/composer/latest/reference/connectionprofile)
 
-<b>4. Buildpath dependencies:</b> I am learning Maven, so expect a pom.xml in future :). For now, download <b>fabric-sdk-java-1.1.0-jar-with-dependencies.jar</b> from [maven repo](http://central.maven.org/maven2/org/hyperledger/fabric-sdk-java/fabric-sdk-java/1.1.0/) and add it to your build path.
+<b>4. Buildpath dependencies:</b> If face any issue with Maven setup, download <b>fabric-sdk-java-1.1.0-jar-with-dependencies.jar</b> from [maven repo](http://central.maven.org/maven2/org/hyperledger/fabric-sdk-java/fabric-sdk-java/1.1.0/) and add it to your build path.
 
 
 ### Setting up client:
