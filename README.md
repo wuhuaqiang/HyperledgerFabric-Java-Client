@@ -21,7 +21,7 @@ https://hyperledger.github.io/composer/latest/reference/connectionprofile)
 <b>4. Buildpath dependencies:</b> I am learning Maven, so expect a pom.xml in future :). For now, download <b>fabric-sdk-java-1.1.0-jar-with-dependencies.jar</b> from [maven repo](http://central.maven.org/maven2/org/hyperledger/fabric-sdk-java/fabric-sdk-java/1.1.0/) and add it to your build path.
 
 
-<b>Setting up client:</b>
+### Setting up client:
 
 <b>Step 1: Enrolling admin:</b>
 
@@ -110,6 +110,7 @@ Now, of course, we would not like to use this admin user to invoke all transacti
 ```
 
 On successful enrolment, user-context for the enrolled user would be saved in the client's MSP folder.
+
 <b>The Client is ready to invoke and query chaincode on fabric network </b>
 -------------------------------------------------------------------------
 ### Invoking a Transaction:
@@ -174,9 +175,3 @@ public CompletableFuture<BlockEvent.TransactionEvent> invokeChainCode(String cha
 - Get transaction details
 
 ChannelWrapper class is extensible and more operations can be added if required.
-
-
-
-
-
-
