@@ -1,19 +1,24 @@
+package com.fabric;
+
+import com.fabric.client.CAClientWrapper;
 import com.fabric.client.ChannelWrapper;
 import com.fabric.network.LoadConnectionProfile;
 
-public class Test {
+public class Testing {
 
     public static void main(String args[]) throws Exception {
         String org = "org1";
         String userName = "Ankur";
         //
+
+
         LoadConnectionProfile networkConfig = LoadConnectionProfile.getInstance();
 
 
-        //CAClientWrapper caClient = new CAClientWrapper(org);
-        //caClient.enrollAdmin(LoadConnectionProfile.getCaInfo(org).getRegistrars().iterator().next().getName(),
-        //   LoadConnectionProfile.getCaInfo(org).getRegistrars().iterator().next().getEnrollSecret());
-        //caClient.getUserContext("Ankur","HtcczMLzSDjw","org1");
+        CAClientWrapper caClient = new CAClientWrapper(org);
+        caClient.enrollAdmin(LoadConnectionProfile.getCaInfo(org).getRegistrars().iterator().next().getName(),
+                LoadConnectionProfile.getCaInfo(org).getRegistrars().iterator().next().getEnrollSecret());
+        caClient.getUserContext("Ankur", "HtcczMLzSDjw", "org1");
 
         ChannelWrapper channelClient = ChannelWrapper.getChannelWrapperInstance(userName, org);
         //TransactionInfo ss = channelClient.queryByTransactionId("9fac3ff23bbc608914524980c72913493241ad7858ebf73a7b86d5afa13b7652", "mychannel");

@@ -16,7 +16,7 @@
         </plugins>
     </build>
     <groupId>groupId</groupId>
-    <artifactId>Fabric-Java-Client</artifactId>
+    <artifactId>HyperledgerFabric-Java-Client</artifactId>
     <version>1.0-SNAPSHOT</version>
     <dependencies>
         <dependency>
