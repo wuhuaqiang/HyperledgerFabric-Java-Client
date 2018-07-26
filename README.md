@@ -151,6 +151,13 @@ public CompletableFuture<BlockEvent.TransactionEvent> invokeChainCode(String cha
                     throw new Exception(resp.getMessage());
                 }
             }
+            
+            // verify that all endorser returned same proposal payload (readset/writeset)
+            Collection<Set<ProposalResponse>> proposalConsistencySets = SDKUtils.getProposalConsistencySets(response);
+            if (proposalConsistencySets.size() != 1) {
+
+                throw new Exception("Expected only one set of consistent proposal responses but got more");
+            }
 
 ```
 
