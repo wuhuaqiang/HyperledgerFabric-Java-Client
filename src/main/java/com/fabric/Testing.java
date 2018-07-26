@@ -9,8 +9,7 @@ public class Testing {
     public static void main(String args[]) throws Exception {
         String org = "org1";
         String userName = "Ankur";
-        //
-
+        
 
         LoadConnectionProfile networkConfig = LoadConnectionProfile.getInstance();
 
