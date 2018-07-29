@@ -60,7 +60,7 @@ To make the enrol call, we require an identity(username), admin, in this case, i
 
 On successful enrolment, admin user context will be saved under MSP folder.
 
-<b>Step 1: Registering and enrolling user:</b>
+<b>Step 2: Registering and enrolling user:</b>
 Now, of course, we would not like to use this admin user to invoke all transaction on blockchain network. We may require access control decisions in our chaincode based on the attributes of the identity of the client (i.e. the invoker of the chain code), called [ABAC](https://hyperledger-fabric-ca.readthedocs.io/en/release-1.1/users-guide.html#attribute-based-access-control) in short. so the whole point here is to enable other users to interact with the network and this is a two-step process:
 - 1. <b>Register the user with CA:</b>
 
