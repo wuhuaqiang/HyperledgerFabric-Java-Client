@@ -1,4 +1,7 @@
 # Fabric-Java-Client(Work in progress :) )
+
+A more detailed explanation is available at [medium](https://codeburst.io/a-concise-tutorial-on-working-with-hyperledger-fabric-java-sdk-a6f11d8bb5b0)
+
 A Hyperledger fabric Java client.
 This tutorial uses connection profile in order to simplify the process of getting access to fabric network.
 
