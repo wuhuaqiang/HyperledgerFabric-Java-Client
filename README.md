@@ -1,4 +1,5 @@
 # Fabric-Java-Client(Work in progress :) )
+# This client has an anti pattern, it assume to have different instance of class for each enrolled user. Client class should be singleton. It should be instantiated only once.
 
 A more detailed explanation is available on [medium](https://codeburst.io/a-concise-tutorial-on-working-with-hyperledger-fabric-java-sdk-a6f11d8bb5b0)
 
