@@ -1,4 +1,4 @@
-# Fabric-Java-Client(Work in progress :) )
+# Fabric-Java-Client(No longer maintained)
 # This client has an anti pattern, it assumes to have different instance of CAClientWrapper class for each enrolled user. CAClientWrapper class should be singleton. It should be instantiated only once.
 
 A more detailed explanation is available on [medium](https://codeburst.io/a-concise-tutorial-on-working-with-hyperledger-fabric-java-sdk-a6f11d8bb5b0)
